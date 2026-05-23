@@ -39,36 +39,51 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           children: [
             Form(
               key: formKey,
-              child: TextFormField(
-                controller: TaskTitelController,
-                onTapOutside: (_) => FocusScope.of(context).unfocus(),
-                decoration: InputDecoration(
-                  hintText: "Task Title",
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide.none,
+              child: Column(
+                spacing: 16,
+                children: [
+                  TextFormField(
+                    controller: TaskTitelController,
+                    onTapOutside: (_) => FocusScope.of(context).unfocus(),
+                    decoration: InputDecoration(
+                      hintText: "Task Title",
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                    validator: (value) {
+                      if(value==null || value.isEmpty){
+                        return "Please Enter Task Title";
+                      }
+                      return null;
+                    },
                   ),
-                ),
+                  TextFormField(
+                    controller:TaskDesController,
+                    onTapOutside: (_)=> FocusScope.of(context).unfocus(),
+                    maxLines: 5,
+                    decoration: InputDecoration(
+                      hintText: "Task Description",
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                    validator: (value) {
+                      if(value==null || value.isEmpty){
+                        return "Please Enter Task Description";
+                      }
+                      return null;
+                    },
+                  ),
+                ],
               ),
-            ),
 
-            const SizedBox(height: 20),
-
-            TextFormField(
-              controller:TaskDesController,
-              onTapOutside: (_)=> FocusScope.of(context).unfocus(),
-              maxLines: 5,
-              decoration: InputDecoration(
-                hintText: "Task Description",
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide.none,
-                ),
-              ),
             ),
 
             const SizedBox(height: 30),
@@ -85,8 +100,12 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.pop(context);
+                  if(!formKey.currentState!.validate()){
+                    return;
+                  }
+
                 },
+
                 child: Text(
                   "Save Task",
                   style: TextStyle(
