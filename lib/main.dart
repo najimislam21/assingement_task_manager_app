@@ -1,5 +1,5 @@
+import 'package:assingment_task_manager_app/screens/task_list_screen.dart';
 import 'package:flutter/material.dart';
-import 'screens/task_list_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,13 +12,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
-      title: "To Do UI",
-
+      title: 'To-Do UI',
       theme: ThemeData(
-        useMaterial3: true,
+        scaffoldBackgroundColor: const Color(0xffF5F7FB),
+        fontFamily: 'Roboto',
       ),
-
       home: const TaskListScreen(),
     );
   }
